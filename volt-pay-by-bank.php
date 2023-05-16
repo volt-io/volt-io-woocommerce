@@ -31,7 +31,7 @@ function voltio_on_activate()
 }
 
 function add_voltio_settings_link($links, $file) {
-    if ($file === 'woocommerce-gateway-voltio/woocommerce-gateway-voltio.php') {
+    if (strpos($file, 'volt-pay-by-bank.php') !== false) {
         $settings_link = array(
             'settings' => '<a href="' . esc_url(admin_url('admin.php?page=wc-settings&tab=checkout&section=voltio')) . '">' . __('Settings', 'voltio') . '</a>'
         );
