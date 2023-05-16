@@ -111,6 +111,7 @@
     }
 
     $('body').on('click', '.volt-modal', function(e){
+        e.preventDefault();
         if (e.target === this || $(e.target).hasClass('volt-close')) {
             $(this).hide();
         }
@@ -118,8 +119,8 @@
 
 
     $(document.body).on("click", "#place_order.voltio-pass" ,function(evt) {
-        evt.preventDefault();
-        if(!$(this).hasClass('voltio-required')) {
+        if(!$(this).hasClass('voltio-required') && $('.payment_method_voltio input').prop('checked') === true) {
+            evt.preventDefault();
             $.ajax({
                 type: 'POST',
                 url: wc_checkout_params.ajax_url,
@@ -136,10 +137,10 @@
                 try{
                     var response = jQuery.parseJSON(result);
                     if(response['error']) {
-                        if($('form.woocommerce-checkout').prev('.woocommerce-notices-wrapper').find('.woocommerce-NoticeGroup').length <= 0){
-                            $('form.woocommerce-checkout').prev('.woocommerce-notices-wrapper').append('<div class="woocommerce-NoticeGroup" />');
+                        if($('form.woocommerce-checkout .woocommerce-notices-wrapper .woocommerce-NoticeGroup').length <= 0){
+                            $('form.woocommerce-checkout').append('<div class="woocommerce-notices-wrapper"><div class="woocommerce-NoticeGroup"></div></div>');
                         }
-                        $('.woocommerce-NoticeGroup').html('<ul class="woocommerce-error"></ul>');
+                        $('form.woocommerce-checkout .woocommerce-NoticeGroup').html('<ul class="woocommerce-error"></ul>');
                         $.each(response['error'], function (index, task) {
                             $('.woocommerce-error').append('<li>'+task+'</li>');
                         });
