@@ -147,15 +147,13 @@ function submited_ajax_order_data()
             $data[$values['name']] = $values['value'];
         }
         foreach (WC()->checkout()->checkout_fields as $type => $fields) {
-            if($type == 'billing') {
-                foreach ($fields as $key => $value) {
-                    if (!empty($value['required']) && empty($data[$key])) {
-                        if (!in_array($value['label'], $used_labels)) {
-                            array_push($used_labels, $value['label']);
-                            wc_add_notice(sprintf(__('%s is a required field.', 'woocommerce'), $value['label']), 'error', array('id' => $key));
-                        }
-                        $valid = false;
+            foreach ($fields as $key => $value) {
+                if (!empty($value['required']) && empty($data[$key])) {
+                    if (!in_array($value['label'], $used_labels)) {
+                        array_push($used_labels, $value['label']);
+                        wc_add_notice(sprintf(__('%s is a required field.', 'woocommerce'), $value['label']), 'error', array('id' => $key));
                     }
+                    $valid = false;
                 }
             }
         }

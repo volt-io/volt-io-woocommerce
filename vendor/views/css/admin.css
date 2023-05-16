@@ -1,0 +1,38 @@
+/* line 1, admin.scss */
+#woocommerce_voltio_mode {
+  display: none;
+}
+
+/* line 4, admin.scss */
+.label-mode {
+  display: block !important;
+}
+/* line 6, admin.scss */
+.label-mode input {
+  margin-right: 10px !important;
+}
+
+/* line 10, admin.scss */
+.voltio-tabs {
+  padding: 20px 0 10px;
+}
+/* line 12, admin.scss */
+.voltio-tabs a {
+  background: #fff;
+  color: #111;
+  text-decoration: none;
+  padding: 10px 30px;
+  transition: all .5s;
+}
+/* line 18, admin.scss */
+.voltio-tabs a.active {
+  background: #2271b1;
+  color: #fff;
+}
+
+/* line 26, admin.scss */
+.fields-toggler-by-mode + .current-config {
+  display: block;
+  margin-top: 15px;
+  font-weight: bold;
+}

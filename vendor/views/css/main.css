@@ -1,5 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Signika:wght@400;500&display=swap");
-/* line 62, main.scss */
+/* line 61, main.scss */
 .volt-modal {
   display: none;
   align-items: center;
@@ -11,10 +10,8 @@
   height: 100vh;
   background: rgba(25, 35, 83, 0.6);
   z-index: 999;
-  font-family: 'Signika', sans-serif;
-  font-weight: 400;
 }
-/* line 75, main.scss */
+/* line 72, main.scss */
 .volt-modal > div {
   display: flex;
   width: 90%;
@@ -23,16 +20,16 @@
   overflow: hidden;
 }
 @media all and (min-width: 920px) {
-  /* line 75, main.scss */
+  /* line 72, main.scss */
   .volt-modal > div {
     width: 887px;
   }
 }
-/* line 84, main.scss */
+/* line 81, main.scss */
 .volt-modal > div > div {
   position: relative;
 }
-/* line 86, main.scss */
+/* line 83, main.scss */
 .volt-modal > div > div.volt-left {
   background: #fff;
   position: relative;
@@ -41,45 +38,44 @@
   padding: 32px;
 }
 @media all and (min-width: 920px) {
-  /* line 86, main.scss */
+  /* line 83, main.scss */
   .volt-modal > div > div.volt-left {
     padding: 24px 40px;
     width: 472px;
   }
-  /* line 95, main.scss */
+  /* line 92, main.scss */
   .volt-modal > div > div.volt-left .volt-mobile-photo {
     display: none;
   }
 }
-/* line 99, main.scss */
+/* line 96, main.scss */
 .volt-modal > div > div.volt-left .volt-mobile-photo {
   margin-left: -32px;
   width: calc(100% + 64px);
   margin-bottom: 24px;
 }
-/* line 103, main.scss */
+/* line 100, main.scss */
 .volt-modal > div > div.volt-left .volt-mobile-photo img {
   width: 100%;
 }
-/* line 107, main.scss */
+/* line 104, main.scss */
 .volt-modal > div > div.volt-left .volt-title {
   color: #192353;
   font-weight: 500;
   font-size: 24px;
-  margin: 0;
 }
-/* line 113, main.scss */
+/* line 109, main.scss */
 .volt-modal > div > div.volt-left .volt-subtitle {
   font-size: 17px;
   color: #3D477B;
   margin-bottom: 24px;
 }
-/* line 119, main.scss */
+/* line 115, main.scss */
 .volt-modal > div > div.volt-left .volt-steps .volt-step {
   display: flex;
   margin-bottom: 24px;
 }
-/* line 122, main.scss */
+/* line 118, main.scss */
 .volt-modal > div > div.volt-left .volt-steps .volt-step .volt-number {
   line-height: 0;
   width: 18px;
@@ -99,30 +95,28 @@
   box-shadow: 0px 0px 0px 4px #DBE4FA;
   margin-top: 6px;
 }
-/* line 141, main.scss */
+/* line 137, main.scss */
 .volt-modal > div > div.volt-left .volt-steps .volt-step .volt-content {
   margin-left: 10px;
   font-size: 20px;
   color: #192353;
   line-height: 18px;
 }
-/* line 146, main.scss */
+/* line 142, main.scss */
 .volt-modal > div > div.volt-left .volt-steps .volt-step .volt-content p {
   margin: 0 !important;
   display: block !important;
 }
-/* line 149, main.scss */
+/* line 145, main.scss */
 .volt-modal > div > div.volt-left .volt-steps .volt-step .volt-content p:first-of-type {
   font-weight: 500;
-  line-height: 34px;
 }
-/* line 153, main.scss */
+/* line 148, main.scss */
 .volt-modal > div > div.volt-left .volt-steps .volt-step .volt-content p:last-of-type {
   font-size: 17px;
   color: #3D477B;
-  line-height: 29px;
 }
-/* line 162, main.scss */
+/* line 156, main.scss */
 .volt-modal > div > div.volt-left .volt-close {
   background: #1B63CF !important;
   color: #fff !important;
@@ -137,47 +131,47 @@
   font-weight: 500 !important;
   font-size: 16px !important;
 }
-/* line 177, main.scss */
+/* line 171, main.scss */
 .volt-modal > div > div.volt-right {
   width: 415px;
   position: relative;
   z-index: 13;
 }
 @media screen and (max-width: 767px) {
-  /* line 177, main.scss */
+  /* line 171, main.scss */
   .volt-modal > div > div.volt-right {
     display: none;
   }
 }
-/* line 184, main.scss */
+/* line 178, main.scss */
 .volt-modal > div > div.volt-right img {
   width: 557px;
   margin-bottom: -8px;
   position: relative;
   z-index: 8;
-  margin-left: -63px;
+  margin-left: -62px;
 }
 
-/* line 195, main.scss */
+/* line 189, main.scss */
 .show-volt-modal {
   text-decoration: none !important;
   border: 0 !important;
 }
-/* line 198, main.scss */
+/* line 192, main.scss */
 .show-volt-modal img {
   float: none !important;
 }
 
-/* line 203, main.scss */
+/* line 197, main.scss */
 [for="payment_method_voltio"] {
   display: flex !important;
   align-items: center;
 }
-/* line 207, main.scss */
+/* line 201, main.scss */
 [for="payment_method_voltio"] > a img {
   margin-left: 5px;
 }
-/* line 211, main.scss */
+/* line 205, main.scss */
 [for="payment_method_voltio"] > img {
   margin-left: auto !important;
 }
