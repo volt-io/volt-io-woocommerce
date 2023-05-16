@@ -33,6 +33,7 @@ class WC_Gateway_Voltio extends WC_Payment_Gateway{
     protected function setup_properties()
     {
         $this->method_title = __('Volt: Pay by Bank', 'voltio');
+        $this->title = __('Pay by Bank', 'voltio');
         $this->method_description = __('Official Volt payment gateway for WooCommerce.', 'voltio');
         $this->has_fields = true;
         $this->supports = ['products', 'refunds'];
@@ -73,20 +74,6 @@ class WC_Gateway_Voltio extends WC_Payment_Gateway{
                 'description' => __('If you do not already have Volt account, <a href="https://www.volt.io/contact/" target="_blank">please register</a>.', 'voltio'),
                 'default' => 'no',
             ],
-//            'title' => [
-//                'title' => __('Title:', 'voltio'),
-//                'type' => 'text',
-//                'description' => __('Title of Volt Payment Gateway that users sees on checkout page.', 'voltio'),
-//                'default' => __('Pay by Bank', 'voltio'),
-//                'desc_tip' => true
-//            ],
-//            'description' => [
-//                'title' => __('Description:', 'voltio'),
-//                'type' => 'text',
-//                'description' => __('Description of Volt Payment Gateway that users sees on checkout page.', 'tpay'),
-//                'default' => __('Volt Payment Gateway description', 'voltio'),
-//                'desc_tip' => true
-//            ]
         ];
     }
 
