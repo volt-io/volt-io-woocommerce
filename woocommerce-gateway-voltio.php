@@ -60,15 +60,6 @@ function init_gateway_voltio()
     add_filter('woocommerce_payment_gateways', 'add_voltio_gateways');
 }
 
-add_action('wp_ajax_init_voltio', 'init_voltioo');
-add_action('wp_ajax_nopriv_init_voltio', 'init_voltioo');
-
-function init_voltioo()
-{
-    echo 'qwqw';
-    wp_die();
-}
-
 function add_voltio_gateways($gateways)
 {
     $gateways[] = 'WC_Gateway_Voltio';
