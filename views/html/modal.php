@@ -1,4 +1,4 @@
-<div class="volt-modal" data-volt-icon="<?php echo '/wp-content/plugins/' . VOLTIO_PLUGIN_DIR . '/views/img/volt-info.svg' ?>">
+<div class="volt-modal" data-volt-icon="<?php echo '/wp-content/plugins/' . VOLTIO_PLUGIN_DIR . '/views/img/volt-info.svg' ?>" data-volt-icons="<?php echo '/wp-content/plugins/' . VOLTIO_PLUGIN_DIR . '/views/img/icons-full.svg' ?>" data-volt-icons-border="<?php echo '/wp-content/plugins/' . VOLTIO_PLUGIN_DIR . '/views/img/icons-full-border.svg' ?>">
     <div class="volt-content-modal">
         <div class="volt-left">
             <p class="volt-title"><?php _e('How Volt works') ?></p>

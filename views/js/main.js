@@ -191,7 +191,7 @@
     $(document).ready(function (){
         setTimeout(function(){
             inject_voltio_modal();
-        }, 4000)
+        }, 2000)
     });
 
     $('body').on('click', '.show-volt-modal', function(e){
@@ -206,9 +206,36 @@
     function inject_voltio_modal(){
         if($('[for="payment_method_voltio"]').length > 0){
             $('<a href="#" class="show-volt-modal"><img src="'+$('.volt-modal').attr('data-volt-icon')+'" /></a>').insertBefore($('[for="payment_method_voltio"]').find('img:not(.volt-modal-icon)'));
+            if($('.payment_method_voltio').width() > 350){
+                var element = $('[for="payment_method_voltio"]');
+                var backgroundColor = findParentBackgroundColor(element);
+                if(!backgroundColor){
+                    $('[for="payment_method_voltio"] > img').attr('src', $('.volt-modal').attr('data-volt-icons-border'));
+                }
+                else{
+                    $('[for="payment_method_voltio"] > img').attr('src', $('.volt-modal').attr('data-volt-icons'));
+                }
+            }
+
             // .prepend('<a href="#" class="show-volt-modal"><img src="'+$('[.volt-modal]').attr('data-volt-volt')+'" /></a>');
         }
     }
+
+    function findParentBackgroundColor(element) {
+        var parent = element.parent();
+        var backgroundColor = parent.css('background-color');
+
+        if (backgroundColor === 'rgba(0, 0, 0, 0)' || backgroundColor === 'transparent') {
+            if (parent.is('body')) {
+                return null; // W przypadku nieznalezienia koloru zwracamy null
+            } else {
+                return findParentBackgroundColor(parent);
+            }
+        }
+
+        return backgroundColor;
+    }
+
 
     $('body').on('click', '#place_order', function(event) {
         // event.preventDefault();
