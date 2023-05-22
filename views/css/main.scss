@@ -195,8 +195,16 @@
 .show-volt-modal{
   text-decoration: none !important;
   border: 0 !important;
+  outline: 0 !important;
+  &:hover, &:focus{
+    text-decoration: none !important;
+    border: 0 !important;
+    outline: 0 !important;
+    background: transparent !important;
+  }
   img{
     float: none !important;
+    outline: 0 !important;
   }
 }
 
@@ -212,3 +220,6 @@
     margin-left: auto !important;
   }
 }
+//body{
+//  background-color: unset !important;
+//}

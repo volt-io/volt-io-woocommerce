@@ -162,22 +162,31 @@
 .show-volt-modal {
   text-decoration: none !important;
   border: 0 !important;
+  outline: 0 !important;
 }
-/* line 198, main.scss */
+/* line 199, main.scss */
+.show-volt-modal:hover, .show-volt-modal:focus {
+  text-decoration: none !important;
+  border: 0 !important;
+  outline: 0 !important;
+  background: transparent !important;
+}
+/* line 205, main.scss */
 .show-volt-modal img {
   float: none !important;
+  outline: 0 !important;
 }
 
-/* line 203, main.scss */
+/* line 211, main.scss */
 [for="payment_method_voltio"] {
   display: flex !important;
   align-items: center;
 }
-/* line 207, main.scss */
+/* line 215, main.scss */
 [for="payment_method_voltio"] > a img {
   margin-left: 5px;
 }
-/* line 211, main.scss */
+/* line 219, main.scss */
 [for="payment_method_voltio"] > img {
   margin-left: auto !important;
 }
