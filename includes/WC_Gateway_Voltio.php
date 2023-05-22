@@ -34,7 +34,7 @@ class WC_Gateway_Voltio extends WC_Payment_Gateway{
     {
         $this->method_title = __('Volt: Pay by Bank', 'voltio');
         $this->title = __('Pay by Bank', 'voltio');
-        $this->method_description = __('Official Volt payment gateway for WooCommerce.', 'voltio');
+        $this->method_description = __('Official Volt payment gateway for WooCommerce. If you do not already have Volt account, <a href="https://www.volt.io/contact/" target="_blank">please register</a>.<br />If you have any problems configuring plugin, please check our <a href="https://docs.volt.io/plugins/woocommerce/" target="_blank">documentation page</a>.', 'voltio');
         $this->has_fields = true;
         $this->supports = ['products', 'refunds'];
     }
@@ -71,7 +71,7 @@ class WC_Gateway_Voltio extends WC_Payment_Gateway{
                 'title' => __('Enable/Disable', 'voltio'),
                 'label' => __('Enable Volt: Pay by Bank', 'voltio'),
                 'type' => 'checkbox',
-                'description' => __('If you do not already have Volt account, <a href="https://www.volt.io/contact/" target="_blank">please register</a>.', 'voltio'),
+//                'description' => __('If you do not already have Volt account, <a href="https://www.volt.io/contact/" target="_blank">please register</a>.', 'voltio'),
                 'default' => 'no',
             ],
 //            'title' => [
@@ -202,8 +202,8 @@ class WC_Gateway_Voltio extends WC_Payment_Gateway{
                 'type' => 'select',
                 'class' => 'fields-toggler-by-mode',
                 'options' => [
-                    'sandbox' => __('Sandbox', 'voltio'),
-                    'production' => __('Production', 'voltio'),
+                    'sandbox' => __('Set Sandbox environment', 'voltio'),
+                    'production' => __('Set Production environment', 'voltio'),
                 ],
             ],
             'client_id_sandbox' => [

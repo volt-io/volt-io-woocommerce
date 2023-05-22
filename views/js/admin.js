@@ -12,7 +12,7 @@
                 }
                 $('<label class="label-mode"><input type="radio" name="vmode" '+(selected===true?'checked="checked"':'')+' value="'+$(this).attr('value')+'" />'+$(this).html()+'</label>').insertBefore(select);
             });
-            $('<span class="current-config">Configure environment</span><div class="voltio-tabs"><a href="#" class="set-sandbox active" data-mode="sandbox">Sandbox</a><a href="#" class="set-production" data-mode="production">Production</a></div>').insertAfter(select);
+            $('<span class="current-config">Configure environment</span><div class="voltio-tabs"><a href="#" class="set-sandbox active" data-mode="sandbox">Configure Sandbox credentials</a><a href="#" class="set-production" data-mode="production">Configure Production credentials</a></div>').insertAfter(select);
             setTimeout(function(){
                 $('.voltio-tabs a[data-mode="'+current+'"]').click();
             }, 800);
