@@ -247,12 +247,13 @@ function custom_content_thankyou($order_id)
 
 add_action('init', function () {
     if ($_REQUEST['volt']) {
-        $volt = base64_decode($_REQUEST['volt']);
-        $volt = json_decode($volt, true);
-        $res = get_order_data_by_hash($volt['uniqueReference']);
+        $volt = filter_input(INPUT_GET, 'volt', FILTER_SANITIZE_STRING);
+        $volt_decoded = base64_decode($volt);
+        $volt_arr = json_decode($volt_decoded, true);
+        $res = get_order_data_by_hash($volt_arr['uniqueReference']);
         $return_wc_endpoint = wc_get_endpoint_url( 'order-received');
         $return_url = wc_get_page_permalink( 'checkout' ) . ltrim($return_wc_endpoint, '/');
-        update_post_meta($res['order_id'], 'current_volt_status', $volt['status']);
+        update_post_meta($res['order_id'], 'current_volt_status', $volt_arr['status']);
         wp_redirect($return_url . '/' . $res['order_id'] . '/?key=' . $res['order_key']);
         exit();
     }

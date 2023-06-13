@@ -17,6 +17,7 @@
         // payButton: $('#place_order'),
 
         initVoltio: function () {
+            voltio.voltBlockUI();
             voltio.mode = $('#volt-payment-component').attr('data-voltio-mode');
             $.ajax({
                 url: voltio_obj.ajaxurl,
@@ -70,13 +71,13 @@
                 payment,
                 language: "en", // optional - ISO 639-1
                 country: "EN", // optional - ISO 3166
-                // theme: voltio.themeOptions
             });
             voltio.paymentComponent = voltio.paymentContainer.createPayment({
                 displayPayButton: false
             });
             const payButton = $('#place_order');
             payButton.addClass('voltio-required');
+
             // payButton.disabled = true;
             payButton.onclick = function () {
                 if($('[name="voltio-selected-bank"]').val() == 1) {
@@ -104,6 +105,16 @@
             voltio.paymentComponent.mount("#volt-payment-component");
             const termsComponent = voltio.paymentContainer.createTerms();
             termsComponent.mount("#volt-payment-terms"); // the element above pay button
+            $('.volt-blockui').remove();
+        },
+        voltBlockUI: function(){
+            var int = setInterval(function(){
+                if($('#payment').find('.blockUI.blockOverlay').length <= 0){
+                    $('#payment').append('<div class="blockUI blockOverlay volt-blockui" style="z-index: 1000; border: none; margin: 0px; padding: 0px; width: 100%; height: 100%; top: 0px; left: 0px; background: rgb(255, 255, 255); opacity: 0.6; cursor: default; position: absolute;"></div>');
+                    $('#payment').css('position', 'relative');
+                    clearInterval(int);
+                }
+            }, 1);
         },
         payButtonListener: function(){
             voltio.payButton.addClass('voltio-required');
@@ -115,7 +126,16 @@
         if (e.target === this || $(e.target).hasClass('volt-close')) {
             $(this).hide();
         }
-    })
+    });
+    $(document).keyup(function(event) {
+        if (event.which === 27) {
+            if($('.volt-modal').length > 0){
+                if($('.volt-modal').is(':visible')){
+                    $('.volt-modal').hide();
+                }
+            }
+        }
+    });
 
 
     $(document.body).on("click", "#place_order.voltio-pass" ,function(evt) {
@@ -206,21 +226,28 @@
     function inject_voltio_modal(){
         if($('[for="payment_method_voltio"]').length > 0){
             $('<a href="#" class="show-volt-modal"><img src="'+$('.volt-modal').attr('data-volt-icon')+'" /></a>').insertBefore($('[for="payment_method_voltio"]').find('img:not(.volt-modal-icon)'));
-            inject_volt_icon();
+            inject_volt_icon(true);
         }
     }
 
-    function inject_volt_icon(){
+    function inject_volt_icon(show_loader){
+        if(show_loader) {
+            voltio.voltBlockUI();
+            setTimeout(function () {
+                $('.volt-blockui').remove();
+            }, 1000);
+        }
         if($('.payment_method_voltio').width() > 380){
             $('[for="payment_method_voltio"] > img').attr('src', $('.volt-modal').attr('data-volt-icons-border'));
         }
         else{
             $('[for="payment_method_voltio"] > img').attr('src', $('.volt-modal').attr('data-volt-logo'));
         }
+
     }
 
     $(window).on('resize', function(){
-        inject_volt_icon();
+        inject_volt_icon(false);
     })
 
 
