@@ -220,6 +220,7 @@ function submited_ajax_order_data()
 
         do_action('woocommerce_checkout_update_order_meta', $order_id, $data);
         update_post_meta($order_id, 'order_hash', $order_hash);
+        setcookie('order_hash', $order_hash, time() + 3000, '/');
         WC()->cart->empty_cart();
         if($order_id > 0){
             echo json_encode(['success' => $order_id]);
@@ -245,15 +246,12 @@ function custom_content_thankyou($order_id)
     }
 }
 
+
 add_action('init', function () {
-    if ($_REQUEST['volt']) {
-        $volt = filter_input(INPUT_GET, 'volt', FILTER_SANITIZE_STRING);
-        $volt_decoded = base64_decode($volt);
-        $volt_arr = json_decode($volt_decoded, true);
-        $res = get_order_data_by_hash($volt_arr['uniqueReference']);
+    if($_REQUEST['volt']){
+        $res = get_order_data_by_hash($_COOKIE['order_hash']);
         $return_wc_endpoint = wc_get_endpoint_url( 'order-received');
         $return_url = wc_get_page_permalink( 'checkout' ) . ltrim($return_wc_endpoint, '/');
-        update_post_meta($res['order_id'], 'current_volt_status', $volt_arr['status']);
         wp_redirect($return_url . '/' . $res['order_id'] . '/?key=' . $res['order_key']);
         exit();
     }
