@@ -1,0 +1,13 @@
+2023-07-11 - version 1.1
+* phpcs
+* fixing a security issue with the plugin (access token available to the public)
+
+2023-04-05 - version 1.0
+* add WP cron support to cancel orders that have not been paid within 3h
+* adding a modal window with information about benefits
+
+2023-03-05 - version 0.9
+* Initial release
+* payments work
+* communication with Volt.io API works
+* plug-in management panel works

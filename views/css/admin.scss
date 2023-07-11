@@ -1,29 +1,34 @@
-#woocommerce_voltio_mode{
+#woocommerce_voltio_mode {
   display: none;
 }
-.label-mode{
+
+.label-mode {
   display: block !important;
-  input{
+
+  input {
     margin-right: 10px !important;
   }
 }
-.voltio-tabs{
+
+.voltio-tabs {
   padding: 20px 0 10px;
-  a{
+
+  a {
     background: #fff;
     color: #111;
     text-decoration: none;
     padding: 10px 30px;
     transition: all .5s;
-    &.active{
+
+    &.active {
       background: #2271b1;
       color: #fff;
     }
   }
 }
 
-.fields-toggler-by-mode{
-  +.current-config{
+.fields-toggler-by-mode {
+  + .current-config {
     display: block;
     margin-top: 15px;
     font-weight: bold;

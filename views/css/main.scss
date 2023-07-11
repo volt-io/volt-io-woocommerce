@@ -39,7 +39,8 @@
     @content;
   }
 }
-@mixin tablet-mobile{
+
+@mixin tablet-mobile {
   @media all and (max-width: 991px) {
     @content;
   }
@@ -57,9 +58,10 @@
     @content;
   }
 }
+
 @import url('https://fonts.googleapis.com/css2?family=Signika:wght@400;500&display=swap');
 
-.volt-modal{
+.volt-modal {
   display: none;
   align-items: center;
   justify-content: center;
@@ -72,18 +74,21 @@
   z-index: 999;
   font-family: 'Signika', sans-serif;
   font-weight: 400;
-  >div{
+
+  > div {
     display: flex;
     width: 90%;
     margin: auto;
     border-radius: 3px;
     overflow: hidden;
-    @include minwidth(920px){
+    @include minwidth(920px) {
       width: 887px;
     }
-    >div{
+
+    > div {
       position: relative;
-      &.volt-left{
+
+      &.volt-left {
         background: #fff;
         position: relative;
         z-index: 6;
@@ -92,34 +97,40 @@
         @include minwidth(920px) {
           padding: 24px 40px;
           width: 472px;
-          .volt-mobile-photo{
+          .volt-mobile-photo {
             display: none;
           }
         }
-        .volt-mobile-photo{
+
+        .volt-mobile-photo {
           margin-left: -32px;
           width: calc(100% + 64px);
           margin-bottom: 24px;
-          img{
+
+          img {
             width: 100%;
           }
         }
-        .volt-title{
+
+        .volt-title {
           color: #192353;
           font-weight: 500;
           font-size: 24px;
           margin: 0;
         }
-        .volt-subtitle{
+
+        .volt-subtitle {
           font-size: 17px;
           color: #3D477B;
           margin-bottom: 24px;
         }
-        .volt-steps{
-          .volt-step{
+
+        .volt-steps {
+          .volt-step {
             display: flex;
             margin-bottom: 24px;
-            .volt-number{
+
+            .volt-number {
               line-height: 0;
               width: 18px;
               height: 18px;
@@ -138,19 +149,23 @@
               box-shadow: 0px 0px 0px 4px #DBE4FA;
               margin-top: 6px;
             }
-            .volt-content{
+
+            .volt-content {
               margin-left: 10px;
               font-size: 20px;
               color: #192353;
               line-height: 18px;
-              p{
+
+              p {
                 margin: 0 !important;
                 display: block !important;
-                &:first-of-type{
+
+                &:first-of-type {
                   font-weight: 500;
                   line-height: 34px;
                 }
-                &:last-of-type{
+
+                &:last-of-type {
                   font-size: 17px;
                   color: #3D477B;
                   line-height: 29px;
@@ -159,7 +174,8 @@
             }
           }
         }
-        .volt-close{
+
+        .volt-close {
           background: #1B63CF !important;
           color: #fff !important;
           text-decoration: none !important;
@@ -174,14 +190,16 @@
           font-size: 16px !important;
         }
       }
-      &.volt-right{
+
+      &.volt-right {
         @media screen and (max-width: 767px) {
           display: none;
         }
         width: 415px;
         position: relative;
         z-index: 13;
-        img{
+
+        img {
           width: 557px;
           margin-bottom: -8px;
           position: relative;
@@ -192,34 +210,40 @@
     }
   }
 }
-.show-volt-modal{
+
+.show-volt-modal {
   text-decoration: none !important;
   border: 0 !important;
   outline: 0 !important;
-  &:hover, &:focus{
+
+  &:hover, &:focus {
     text-decoration: none !important;
     border: 0 !important;
     outline: 0 !important;
     background: transparent !important;
   }
-  img{
+
+  img {
     float: none !important;
     outline: 0 !important;
   }
 }
 
-[for="payment_method_voltio"]{
+[for="payment_method_voltio"] {
   display: flex !important;
   align-items: center;
-  >a{
-    img{
+
+  > a {
+    img {
       margin-left: 5px;
     }
   }
-  >img{
+
+  > img {
     margin-left: auto !important;
   }
 }
+
 //body{
 //  background-color: unset !important;
 //}
