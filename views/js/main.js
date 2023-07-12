@@ -70,8 +70,6 @@
                 token: access_token
             };
             var payment = JSON.parse(JSON.stringify(payment_data));
-            console.log(access_token);
-            console.log(payment);
             paymentContainer = volt.payment({
                 payment,
                 language: "en", // optional - ISO 639-1
@@ -100,8 +98,6 @@
                 }
             });
             paymentComponent.mount("#volt-payment-component");
-            console.log('paymentComponent start');
-            console.log(paymentComponent)
             const termsComponent = paymentContainer.createTerms();
             termsComponent.mount("#volt-payment-terms"); // the element above pay button
             $('.volt-blockui').remove();
@@ -169,8 +165,10 @@
                     'action': 'ajax_order',
                     'order_hash': $('input[name="voltio-hash"]').val(),
                     'fields': $('form.checkout').serializeArray(),
+					'nonce': wc_checkout_params.update_order_review_nonce,
                 },
                 success: function (result) {
+                    console.log(wc_checkout_params.update_order_review_nonce); // For testing (to be removed)
                     console.log(result); // For testing (to be removed)
                     $('.woocommerce-NoticeGroup').html('');
                     try {

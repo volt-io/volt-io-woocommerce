@@ -1,3 +1,7 @@
+2023-07-12 - version 1.2
+* replace API endpoint
+* fix php warnings
+
 2023-07-11 - version 1.1
 * phpcs
 * fixing a security issue with the plugin (access token available to the public)

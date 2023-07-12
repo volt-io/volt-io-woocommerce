@@ -172,12 +172,12 @@ class WC_Gateway_Voltio extends WC_Payment_Gateway {
 		foreach ( $fields as $field => $data ) {
 			$settings[ $field ] = array(
 				'title'       => $data['label'],
-				'type'        => $data['type'] ? $data['type'] : 'text',
+				'type'        => isset( $data['type'] ) ? $data['type'] : 'text',
 				'description' => $data['description'],
 				'class'       => $data['class'],
 				'desc_tip'    => true,
 			);
-			if ( $data['options'] ) {
+			if ( isset( $data['options'] ) ) {
 				$settings[ $field ]['options'] = $data['options'];
 			}
 		}

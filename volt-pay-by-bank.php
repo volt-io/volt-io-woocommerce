@@ -3,7 +3,7 @@
  * Plugin Name: Volt Pay by Bank
  * Plugin URI: https://volt.io
  * Description: Volt.io payment gateway for WooCommerce
- * Version: 1.1
+ * Version: 1.2
  * Author: Volt.io
  * Author URI: http://volt.io
  * License: LGPL 3.0
@@ -12,13 +12,12 @@
  * WC requires at least: 5.5
  * WC tested up to: 5.5
  */
-define( 'WP_DEBUG_DISPLAY', false );
 
 session_start();
 /*
  * Add new gateway
  */
-define( 'VOLTIO_PLUGIN_VERSION', '1.1' );
+define( 'VOLTIO_PLUGIN_VERSION', '1.2' );
 define( 'VOLTIO_PLUGIN_DIR', dirname( plugin_basename( __FILE__ ) ) );
 add_action( 'plugins_loaded', 'init_gateway_voltio' );
 add_action( 'voltio_cancel_order', 'voltio_cancel_unpaid_order', 10, 1 );
@@ -96,9 +95,9 @@ function volt_modal() {
 add_action( 'wp_ajax_ajax_order', 'submited_ajax_order_data' );
 add_action( 'wp_ajax_nopriv_ajax_order', 'submited_ajax_order_data' );
 function submited_ajax_order_data() {
-	if ( isset( $_REQUEST['_wpnonce'] ) ) {
-		$nonce = sanitize_text_field( $_REQUEST['_wpnonce'] );
-		if ( wp_verify_nonce( $nonce, 'my-nonce' ) ) {
+	if ( isset( $_REQUEST['nonce'] ) ) {
+		$nonce = sanitize_text_field( $_REQUEST['nonce'] );
+		if ( wp_verify_nonce( $nonce, 'update-order-review' ) ) {
 			if ( isset( $_POST['fields'] ) && ! empty( $_POST['fields'] ) ) {
 
 				$order       = new WC_Order();
@@ -251,9 +250,9 @@ function get_order_data_by_hash( $hash ) {
 add_action( 'woocommerce_after_checkout_validation', 'rei_after_checkout_validation' );
 
 function rei_after_checkout_validation( $posted ) {
-	if ( isset( $_REQUEST['_wpnonce'] ) ) {
-		$nonce = sanitize_text_field( $_REQUEST['_wpnonce'] );
-		if ( wp_verify_nonce( $nonce, 'my-nonce' ) ) {
+	if ( isset( $_REQUEST['nonce'] ) ) {
+		$nonce = sanitize_text_field( $_REQUEST['nonce'] );
+		if ( wp_verify_nonce( $nonce, 'update-order-review' ) ) {
 			if ( isset( $_POST['payment_method'] ) ) {
 				if ( empty( $_POST['voltio-selected-bank'] ) && 'voltio' == $_POST['payment_method'] ) {
 					wc_add_notice( __( 'Select bank', 'voltio' ), 'error' );

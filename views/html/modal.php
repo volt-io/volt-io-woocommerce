@@ -1,13 +1,13 @@
 <div class="volt-modal"
-	 data-volt-icon="<?php echo esc_url( home_url( '/wp-content/plugins/' . esc_url(VOLTIO_PLUGIN_DIR) . '/views/img/volt-info.svg' ) ); ?>"
-	 data-volt-logo="<?php echo esc_url( home_url( '/wp-content/plugins/' . esc_url(VOLTIO_PLUGIN_DIR) . '/views/img/volt-logo.svg' ) ); ?>"
-	 data-volt-icons-border="<?php echo esc_url( home_url( '/wp-content/plugins/' . esc_url(VOLTIO_PLUGIN_DIR) . '/views/img/icons-full-border.svg' ) ); ?>">
+	 data-volt-icon="<?php echo esc_url( home_url( '/wp-content/plugins/' . esc_html(VOLTIO_PLUGIN_DIR) . '/views/img/volt-info.svg' ) ); ?>"
+	 data-volt-logo="<?php echo esc_url( home_url( '/wp-content/plugins/' . esc_html(VOLTIO_PLUGIN_DIR) . '/views/img/volt-logo.svg' ) ); ?>"
+	 data-volt-icons-border="<?php echo esc_url( home_url( '/wp-content/plugins/' . esc_html(VOLTIO_PLUGIN_DIR) . '/views/img/icons-full-border.svg' ) ); ?>">
 	<div class="volt-content-modal">
 		<div class="volt-left">
 			<p class="volt-title"><?php esc_html_e( 'How Volt works' ); ?></p>
 			<p class="volt-subtitle"><?php esc_html_e( 'Check out in three easy steps:' ); ?></p>
 			<div class="volt-mobile-photo">
-				<img src="<?php echo '/wp-content/plugins/' . esc_url(VOLTIO_PLUGIN_DIR) . '/views/img/volt-modal-mobile.png'; ?>"/>
+				<img src="<?php echo esc_url( home_url( '/wp-content/plugins/' . esc_html(VOLTIO_PLUGIN_DIR) . '/views/img/volt-modal-mobile.png' ) ); ?>"/>
 			</div>
 			<div class="volt-steps">
 				<div class="volt-step">
@@ -35,7 +35,7 @@
 			<a href="#" class="volt-close"><?php esc_html_e( 'Continue' ); ?></a>
 		</div>
 		<div class="volt-right">
-			<img src="<?php echo '/wp-content/plugins/' . esc_url(VOLTIO_PLUGIN_DIR) . '/views/img/volt-modal.png'; ?>"/>
+			<img src="<?php echo esc_url( home_url( '/wp-content/plugins/' . esc_html(VOLTIO_PLUGIN_DIR) . '/views/img/volt-modal.png' ) ); ?>"/>
 		</div>
 	</div>
 </div>
