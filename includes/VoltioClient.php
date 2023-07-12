@@ -123,7 +123,7 @@ class VoltioClient {
 			'paymentFailureUrl' => $return_url,
 		);
 		$curl = curl_init();
-		curl_setopt( $curl, CURLOPT_URL, $this->api_url . '/dropin-payments' );
+		curl_setopt( $curl, CURLOPT_URL, $this->api_url . '/dropin' );
 		curl_setopt( $curl, CURLOPT_RETURNTRANSFER, true );
 		curl_setopt( $curl, CURLOPT_HEADER, false );
 		curl_setopt( $curl, CURLOPT_CUSTOMREQUEST, 'POST' );
