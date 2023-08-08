@@ -1,3 +1,7 @@
+2023-08-08 - version 1.3
+* update dropin request
+* check nonce in fetch_token
+
 2023-07-12 - version 1.2
 * replace API endpoint
 * fix php warnings

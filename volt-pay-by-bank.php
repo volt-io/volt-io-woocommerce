@@ -3,7 +3,7 @@
  * Plugin Name: Volt Pay by Bank
  * Plugin URI: https://volt.io
  * Description: Volt.io payment gateway for WooCommerce
- * Version: 1.2
+ * Version: 1.3
  * Author: Volt.io
  * Author URI: http://volt.io
  * License: LGPL 3.0

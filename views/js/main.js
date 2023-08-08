@@ -45,11 +45,11 @@
                 data: {
                     'action': 'get_dropin_payments',
                     'access_token': access_token,
-                    'payer_name': $('#billing_first_name').val() + ' ' + $('#billing_last_name').val(),
+                    'first_name': $('#billing_first_name').val(),
+                    'last_name': $('#billing_last_name').val(),
                     'nonce': voltio_obj.nonce
                 },
                 success: function (data) {
-                    console.log(data);
                     initDropinComponent(data);
                     $('.example-voltio').remove();
                 },
@@ -168,8 +168,6 @@
 					'nonce': wc_checkout_params.update_order_review_nonce,
                 },
                 success: function (result) {
-                    console.log(wc_checkout_params.update_order_review_nonce); // For testing (to be removed)
-                    console.log(result); // For testing (to be removed)
                     $('.woocommerce-NoticeGroup').html('');
                     try {
                         var response = jQuery.parseJSON(result);
