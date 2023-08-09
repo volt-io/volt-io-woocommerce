@@ -29,11 +29,10 @@
                 },
                 success: function (data) {
                     getDropinPayments(data);
-
                 },
-                error: function (errorThrown) {
-                    console.log(errorThrown);
-                }
+				error: function (errorThrown) {
+					console.log(errorThrown);
+				}
             });
         }
 
@@ -86,8 +85,6 @@
 
             }
             paymentComponent.parent.on('change', function (event) {
-                console.log(event);
-                // this.payButton.disabled = !event.complete;
                 if (!event.complete) {
                     payButton.addClass('voltio-required');
                     $('[name="voltio-selected-bank"]').val('0');
@@ -181,16 +178,11 @@
                             });
                             $('html, body').animate({scrollTop: $('.woocommerce-error').offset().top - 50}, 1000);
                         } else if (response['success']) {
-                            console.log(voltio.getPaymentComponent());
                             voltio.getPaymentComponent().checkout();
                         }
                     } catch (e) {
 
                     }
-
-
-                    // $(document.body).trigger('updated_checkout');
-                    // $('input[name="shipping_method[0]"]').trigger('change');
                     if (result > 0) {
                         // voltio.paymentComponent.checkout();
                     }
@@ -211,7 +203,7 @@
     });
     $('form.checkout').on('change', 'input[name="payment_method"]', function () {
         $('#place_order').removeAttr('disabled');
-        if ($(this).val() == 'voltio' && !$(this).attr('voltio-initialized') && $('#volt-payment-component').html() == '') {
+        if ($(this).val() === 'voltio' && !$(this).attr('voltio-initialized') && $('#volt-payment-component').html() == '') {
             $(this).attr('voltio-initialized', 1);
             $('#place_order').addClass('voltio-required');
             voltio.initialize();

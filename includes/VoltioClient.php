@@ -24,7 +24,7 @@ class VoltioClient {
 			$this->cart_contents_total = 5500;
 		}
 		$this->mode = $this->helper->get_voltio_option( array( 'woocommerce_voltio_settings', 'mode' ) );
-		if ( 'sandbox' == $this->mode ) {
+		if ( 'sandbox' === $this->mode ) {
 			$this->api_url = $this->sandbox_url;
 		} else {
 			$this->api_url = $this->production_url;

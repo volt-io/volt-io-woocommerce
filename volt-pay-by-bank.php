@@ -35,7 +35,7 @@ function add_voltio_settings_link( $links, $file ) {
 
 function voltio_cancel_unpaid_order( $order_id ) {
 	$order = new WC_Order( $order_id );
-	if ( $order->get_status() == 'pending' ) {
+	if ( $order->get_status() === 'pending' ) {
 		$order->update_status( 'cancelled' );
 	}
 }
@@ -119,7 +119,7 @@ function submited_ajax_order_data() {
 						$data[ $keypf ] = $valuepf;
 					}
 					foreach ( WC()->checkout()->checkout_fields as $type => $fields ) {
-						if ( 'billing' == $type ) {
+						if ( 'billing' === $type ) {
 							foreach ( $fields as $key => $value ) {
 								if ( ! empty( $value['required'] ) && empty( $data[ $key ] ) ) {
 									if ( ! in_array( $value['label'], $used_labels ) ) {
@@ -133,7 +133,7 @@ function submited_ajax_order_data() {
 						}
 					}
 					if ( isset( $_POST['payment_method'] ) ) {
-						if ( empty( $_POST['voltio-selected-bank'] ) && 'voltio' == $_POST['payment_method'] ) {
+						if ( empty( $_POST['voltio-selected-bank'] ) && 'voltio' === $_POST['payment_method'] ) {
 							wc_add_notice( __( 'Select bank', 'voltio' ), 'error' );
 							$valid = false;
 						}
@@ -254,7 +254,7 @@ function rei_after_checkout_validation( $posted ) {
 		$nonce = sanitize_text_field( $_REQUEST['nonce'] );
 		if ( wp_verify_nonce( $nonce, 'update-order-review' ) ) {
 			if ( isset( $_POST['payment_method'] ) ) {
-				if ( empty( $_POST['voltio-selected-bank'] ) && 'voltio' == $_POST['payment_method'] ) {
+				if ( empty( $_POST['voltio-selected-bank'] ) && 'voltio' === $_POST['payment_method'] ) {
 					wc_add_notice( __( 'Select bank', 'voltio' ), 'error' );
 					return false;
 				}
