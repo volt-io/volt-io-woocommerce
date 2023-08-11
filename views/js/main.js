@@ -28,7 +28,7 @@
                     'nonce': voltio_obj.nonce
                 },
                 success: function (data) {
-                    getDropinPayments(data);
+                    getDropinPayments();
                 },
 				error: function (errorThrown) {
 					console.log(errorThrown);
@@ -43,14 +43,12 @@
                 method: 'post',
                 data: {
                     'action': 'get_dropin_payments',
-                    'access_token': access_token,
                     'first_name': $('#billing_first_name').val(),
                     'last_name': $('#billing_last_name').val(),
                     'nonce': voltio_obj.nonce
                 },
                 success: function (data) {
                     initDropinComponent(data);
-                    $('.example-voltio').remove();
                 },
                 error: function (errorThrown) {
                     console.log(errorThrown);
@@ -60,6 +58,7 @@
 
         function initDropinComponent(data){
             var result = jQuery.parseJSON(data);
+			console.log(result);
             payment_id = result['payment_id'];
             $('input[name="voltio-hash"]').val(result['order_hash']);
             const mode = $('#volt-payment-component').attr('data-voltio-mode');

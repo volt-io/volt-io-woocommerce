@@ -88,7 +88,7 @@ class VoltioClient {
 				if ($return) {
 					return esc_html($resp);
 				} else {
-					echo esc_html($resp);
+					$_SESSION['access_token'] = $resp;
 					wp_die();
 				}
 			}
@@ -102,7 +102,7 @@ class VoltioClient {
 	}
 
 	public function get_dropin_payments() {
-		$this->access_token = isset($_REQUEST['access_token'])?sanitize_text_field($_REQUEST['access_token']):'';
+		$this->access_token = isset($_SESSION['access_token'])?sanitize_text_field($_SESSION['access_token']):'';
 		$currency           = get_woocommerce_currency();
 		//        $currency = 'GBP';
 		$header = array(
