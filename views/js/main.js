@@ -58,7 +58,6 @@
 
         function initDropinComponent(data){
             var result = jQuery.parseJSON(data);
-			console.log(result);
             payment_id = result['payment_id'];
             $('input[name="voltio-hash"]').val(result['order_hash']);
             const mode = $('#volt-payment-component').attr('data-voltio-mode');
