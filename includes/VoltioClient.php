@@ -42,67 +42,65 @@ class VoltioClient {
 
 	public function fetch_token( $return = false ) {
 		if ( isset( $_REQUEST['nonce'] ) ) {
-			$nonce = sanitize_text_field($_REQUEST['nonce']);
-			if (wp_verify_nonce($nonce, 'ajax-nonce')) {
-				$client_id = $this->helper->get_voltio_option(array('woocommerce_voltio_settings', 'client_id_' . $this->mode));
-				$client_secret = $this->helper->get_voltio_option(array('woocommerce_voltio_settings', 'client_secret_' . $this->mode));
-				$username = $this->helper->get_voltio_option(array('woocommerce_voltio_settings', 'api_username_' . $this->mode));
-				$password = $this->helper->get_voltio_option(array('woocommerce_voltio_settings', 'api_password_' . $this->mode));
-				$grant_type = 'password';
-				$data = array(
-					'client_id' => $client_id,
+			$nonce = sanitize_text_field( $_REQUEST['nonce'] );
+			if ( wp_verify_nonce( $nonce, 'ajax-nonce' ) ) {
+				$client_id     = $this->helper->get_voltio_option( array( 'woocommerce_voltio_settings', 'client_id_' . $this->mode ) );
+				$client_secret = $this->helper->get_voltio_option( array( 'woocommerce_voltio_settings', 'client_secret_' . $this->mode ) );
+				$username      = $this->helper->get_voltio_option( array( 'woocommerce_voltio_settings', 'api_username_' . $this->mode ) );
+				$password      = $this->helper->get_voltio_option( array( 'woocommerce_voltio_settings', 'api_password_' . $this->mode ) );
+				$grant_type    = 'password';
+				$data          = array(
+					'client_id'     => $client_id,
 					'client_secret' => $client_secret,
-					'username' => $username,
-					'password' => $password,
-					'grant_type' => $grant_type,
+					'username'      => $username,
+					'password'      => $password,
+					'grant_type'    => $grant_type,
 				);
-				$header = array(
+				$header        = array(
 					'Content-Type: application/x-www-form-urlencoded',
 				);
-				$curl = curl_init();
-				curl_setopt($curl, CURLOPT_URL, $this->api_url . '/oauth');
-				curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-				curl_setopt($curl, CURLOPT_HEADER, false);
-				curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'POST');
-				curl_setopt($curl, CURLINFO_HEADER_OUT, true);
-				curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
-				curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($data));
-				curl_setopt($curl, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
-				curl_setopt($curl, CURLOPT_POST, true);
-				curl_setopt($curl, CURLOPT_FAILONERROR, true);
-				$response = curl_exec($curl);
-				$error = curl_error($curl);
-				curl_close($curl);
+				$curl          = curl_init();
+				curl_setopt( $curl, CURLOPT_URL, $this->api_url . '/oauth' );
+				curl_setopt( $curl, CURLOPT_RETURNTRANSFER, true );
+				curl_setopt( $curl, CURLOPT_HEADER, false );
+				curl_setopt( $curl, CURLOPT_CUSTOMREQUEST, 'POST' );
+				curl_setopt( $curl, CURLINFO_HEADER_OUT, true );
+				curl_setopt( $curl, CURLOPT_HTTPHEADER, $header );
+				curl_setopt( $curl, CURLOPT_POSTFIELDS, http_build_query( $data ) );
+				curl_setopt( $curl, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1 );
+				curl_setopt( $curl, CURLOPT_POST, true );
+				curl_setopt( $curl, CURLOPT_FAILONERROR, true );
+				$response = curl_exec( $curl );
+				$error    = curl_error( $curl );
+				curl_close( $curl );
 				$resp = null;
-				if ($error) {
-					$this->helper->volt_logger('Can\'t fetch access token');
-					wc_add_notice(__('Error: ', 'voltio') . $error, 'error');
+				if ( $error ) {
+					$this->helper->volt_logger( 'Can\'t fetch access token' );
+					wc_add_notice( __( 'Error: ', 'voltio' ) . $error, 'error' );
 					return false;
 				} else {
-					$response = json_decode($response, true);
-					$this->helper->volt_logger('Successfully received the token');
-					if (array_key_exists('access_token', $response)) {
+					$response = json_decode( $response, true );
+					$this->helper->volt_logger( 'Successfully received the token' );
+					if ( array_key_exists( 'access_token', $response ) ) {
 						$resp = $response['access_token'];
 					}
 				}
-				if ($return) {
-					return esc_html($resp);
+				if ( $return ) {
+					return esc_html( $resp );
 				} else {
 					$_SESSION['access_token'] = $resp;
 					wp_die();
 				}
-			}
-			else{
+			} else {
 				echo 'badnonce';
 			}
-		}
-		else{
+		} else {
 			echo 'nononce';
 		}
 	}
 
 	public function get_dropin_payments() {
-		$this->access_token = isset($_SESSION['access_token'])?sanitize_text_field($_SESSION['access_token']):'';
+		$this->access_token = isset( $_SESSION['access_token'] ) ? sanitize_text_field( $_SESSION['access_token'] ) : '';
 		$currency           = get_woocommerce_currency();
 		//        $currency = 'GBP';
 		$header = array(
@@ -117,8 +115,8 @@ class VoltioClient {
 		}
 		$return_wc_endpoint = wc_get_endpoint_url( 'order-received' );
 		$return_url         = wc_get_page_permalink( 'checkout' ) . ltrim( $return_wc_endpoint, '/' );
-		$first_name = isset($_REQUEST['first_name'])?sanitize_text_field($_REQUEST['first_name']):'Anonymous';
-		$last_name = isset($_REQUEST['last_name'])?sanitize_text_field($_REQUEST['last_name']):'Anonymous';
+		$first_name         = isset( $_REQUEST['first_name'] ) ? sanitize_text_field( $_REQUEST['first_name'] ) : 'Anonymous';
+		$last_name          = isset( $_REQUEST['last_name'] ) ? sanitize_text_field( $_REQUEST['last_name'] ) : 'Anonymous';
 
 		$data = array(
 			'currencyCode'      => $currency,
@@ -128,7 +126,7 @@ class VoltioClient {
 			'payer'             => array(
 				'reference' => $payer_ref,
 				'firstName' => $last_name,
-				'lastName' => $first_name,
+				'lastName'  => $first_name,
 			),
 			'notificationUrl'   => add_query_arg( 'wc-api', 'WC_Gateway_Voltio', home_url( '/' ) ),
 			'paymentPendingUrl' => $return_url,
@@ -153,7 +151,7 @@ class VoltioClient {
 		curl_close( $curl );
 		if ( $error ) {
 			$this->helper->volt_logger( 'Dropn payments failure. CURL errno: ' . curl_errno( $curl ) . ', error: ' . $error );
-			echo 'Error: ' . esc_html($error) . ', ' . esc_html(curl_errno( $curl ));
+			echo 'Error: ' . esc_html( $error ) . ', ' . esc_html( curl_errno( $curl ) );
 		} else {
 			$response = json_decode( $response, true );
 

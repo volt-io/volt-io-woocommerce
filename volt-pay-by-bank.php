@@ -17,10 +17,11 @@ session_start();
 /*
  * Add new gateway
  */
-define( 'VOLTIO_PLUGIN_VERSION', '1.4' );
+define( 'VOLTIO_PLUGIN_VERSION', '1.5' );
 define( 'VOLTIO_PLUGIN_DIR', dirname( plugin_basename( __FILE__ ) ) );
 add_action( 'plugins_loaded', 'init_gateway_voltio' );
 add_action( 'voltio_cancel_order', 'voltio_cancel_unpaid_order', 10, 1 );
+add_action( 'woocommerce_cancel_unpaid_orders', 'volt_prevent_cancel_order' );
 add_filter( 'plugin_action_links', 'add_voltio_settings_link', 10, 2 );
 
 function add_voltio_settings_link( $links, $file ) {
@@ -31,6 +32,19 @@ function add_voltio_settings_link( $links, $file ) {
 		$links         = array_merge( $links, $settings_link );
 	}
 	return $links;
+}
+
+function volt_prevent_cancel_order( $order_id ){
+	$order = wc_get_order( $order_id );
+	$days_in_seconds = 14*24*60*60;
+	if ( $order->get_status() === 'pending' && $order->get_payment_method() === 'volt' ) {
+		if($cmp_date = get_post_meta($order_id, 'volt_completed_date')){
+			$time_diff = current_time( 'timestamp' ) - $cmp_date;
+			if($time_diff < $days_in_seconds) {
+				$order->update_status('pending');
+			}
+		}
+	}
 }
 
 function voltio_cancel_unpaid_order( $order_id ) {
