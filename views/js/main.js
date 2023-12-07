@@ -31,20 +31,27 @@
                     getDropinPayments();
                 },
 				error: function (errorThrown) {
-					console.log(errorThrown);
+
 				}
             });
         }
 
         function getDropinPayments(data){
             access_token = data;
+			var first_name = 'Anonymous', last_name = 'User';
+			if($('#billing_first_name').val() != ''){
+				first_name = $('#billing_first_name').val();
+			}
+			if($('#billing_last_name').val() != ''){
+				last_name = $('#billing_last_name').val();
+			}
             $.ajax({
                 url: voltio_obj.ajaxurl,
                 method: 'post',
                 data: {
                     'action': 'get_dropin_payments',
-                    'first_name': $('#billing_first_name').val(),
-                    'last_name': $('#billing_last_name').val(),
+                    'first_name': first_name,
+                    'last_name': last_name,
                     'nonce': voltio_obj.nonce
                 },
                 success: function (data) {
@@ -67,18 +74,26 @@
                 token: access_token
             };
             var payment = JSON.parse(JSON.stringify(payment_data));
+			var lang = 'en';
+			if($('html').attr('lang').length > 0) {
+				var htmllang = $('html').attr('lang');
+				var lang = htmllang.split('-')[0];
+			}
+			var country = 'EN';
+			if($('#billing_country').length > 0){
+				country = $('#billing_country').val();
+			}
+			console.log('lang: ' + lang + ', htmllang: ' + htmllang + ', country: ' + country);
             paymentContainer = volt.payment({
                 payment,
-                language: "en", // optional - ISO 639-1
-                country: "EN", // optional - ISO 3166
+                language: lang, // optional - ISO 639-1
+                country: country, // optional - ISO 3166
             });
             paymentComponent = paymentContainer.createPayment({
                 displayPayButton: false
             });
             const payButton = $('#place_order');
             payButton.addClass('voltio-required');
-
-            // payButton.disabled = true;
             payButton.onclick = function () {
 
             }
@@ -92,6 +107,7 @@
                     payButton.addClass('voltio-pass');
                 }
             });
+			$('#volt-payment-component, #volt-payment-terms').html('');
             paymentComponent.mount("#volt-payment-component");
             const termsComponent = paymentContainer.createTerms();
             termsComponent.mount("#volt-payment-terms"); // the element above pay button
@@ -117,19 +133,9 @@
         return {
             initialize: initialize,
             voltBlockUI: voltBlockUI,
-            getPaymentComponent: getPaymentComponent,
-            // paymentComponent: paymentComponent
-            // Dodajemy pozostałe publiczne funkcje...
+            getPaymentComponent: getPaymentComponent
         };
     })()
-
-    // var voltio = {
-    //
-    //
-    //     payButtonListener: function () {
-    //
-    //     }
-    // }
 
     $('body').on('click', '.volt-modal', function (e) {
         e.preventDefault();
@@ -181,12 +187,9 @@
                     } catch (e) {
 
                     }
-                    if (result > 0) {
-                        // voltio.paymentComponent.checkout();
-                    }
                 },
                 error: function (error) {
-                    console.log(error); // For testing (to be removed)
+
                 }
             });
         }
@@ -194,6 +197,12 @@
 
 
     $(document.body).on('updated_checkout', function () {
+		if ($('.payment_method_voltio').width() > 380) {
+			var logos = $('.volt-modal').attr('data-volt-icon-logos');
+			$('[for="payment_method_voltio"] > img').attr('src', logos);
+		}
+		// console.log(available_icons);
+		// $('.show-volt-modal + img');
         if ($('input[name="payment_method"][value="voltio"]').is(':checked')) {
             $('input[name="payment_method"][value="voltio"]').removeAttr('voltio-initialized');
             $('input[name="payment_method"][value="voltio"]').trigger('change');
@@ -205,15 +214,16 @@
             $(this).attr('voltio-initialized', 1);
             $('#place_order').addClass('voltio-required');
             voltio.initialize();
-            // inject_voltio_desc();
-
         }
     });
     $(document).ready(function () {
         setTimeout(function () {
             inject_voltio_modal();
-        }, 2000)
+        }, 4000)
     });
+	$('body').on('change', '#billing_country', function(){
+		voltio.initialize();
+	})
 
     $('body').on('click', '.show-volt-modal', function (e) {
         e.preventDefault();
@@ -239,7 +249,8 @@
             }, 1000);
         }
         if ($('.payment_method_voltio').width() > 380) {
-            $('[for="payment_method_voltio"] > img').attr('src', $('.volt-modal').attr('data-volt-icons-border'));
+			var logos = $('.volt-modal').attr('data-volt-icon-logos');
+            $('[for="payment_method_voltio"] > img').attr('src', logos);
         } else {
             $('[for="payment_method_voltio"] > img').attr('src', $('.volt-modal').attr('data-volt-logo'));
         }

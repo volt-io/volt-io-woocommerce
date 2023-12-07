@@ -1,0 +1,179 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Volt Pay by Bank\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-11-20 10:11+0000\n"
+"PO-Revision-Date: 2023-11-28 09:49+0000\n"
+"Last-Translator: \n"
+"Language-Team: Dutch\n"
+"Language: nl_NL\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.6.6; wp-6.4.1\n"
+"X-Domain: voltio"
+
+#: includes/WC_Gateway_Voltio.php:216 includes/WC_Gateway_Voltio.php:241
+msgid "API password"
+msgstr ""
+
+#: includes/WC_Gateway_Voltio.php:217 includes/WC_Gateway_Voltio.php:242
+msgid "API password description"
+msgstr ""
+
+#: includes/WC_Gateway_Voltio.php:211 includes/WC_Gateway_Voltio.php:236
+msgid "API username"
+msgstr ""
+
+#: includes/WC_Gateway_Voltio.php:212 includes/WC_Gateway_Voltio.php:237
+msgid "API username description"
+msgstr ""
+
+#: includes/WC_Gateway_Voltio.php:201 includes/WC_Gateway_Voltio.php:226
+msgid "Client ID"
+msgstr ""
+
+#: includes/WC_Gateway_Voltio.php:202 includes/WC_Gateway_Voltio.php:227
+msgid "Client ID description"
+msgstr ""
+
+#: includes/WC_Gateway_Voltio.php:206 includes/WC_Gateway_Voltio.php:231
+msgid "Client secret"
+msgstr ""
+
+#: includes/WC_Gateway_Voltio.php:207 includes/WC_Gateway_Voltio.php:232
+msgid "Client secret description"
+msgstr ""
+
+#: includes/WC_Gateway_Voltio.php:68
+msgid "Enable Volt: Pay by Bank"
+msgstr ""
+
+#: includes/WC_Gateway_Voltio.php:67
+msgid "Enable/Disable"
+msgstr ""
+
+#: includes/WC_Gateway_Voltio.php:191
+msgid "Environment"
+msgstr ""
+
+#: includes/VoltioClient.php:79
+msgid "Error: "
+msgstr ""
+
+#. Author URI of the plugin
+msgid "http://volt.io"
+msgstr ""
+
+#. URI of the plugin
+msgid "https://volt.io"
+msgstr ""
+
+#: includes/WC_Gateway_Voltio.php:192
+msgid "Mode description"
+msgstr ""
+
+#: includes/WC_Gateway_Voltio.php:221 includes/WC_Gateway_Voltio.php:246
+msgid "Notification secret"
+msgstr ""
+
+#: includes/WC_Gateway_Voltio.php:222 includes/WC_Gateway_Voltio.php:247
+msgid "Notification secret description"
+msgstr ""
+
+#: includes/WC_Gateway_Voltio.php:36
+msgid ""
+"Official Volt payment gateway for WooCommerce. If you do not already have "
+"Volt account, <a href=\"https://www.volt.io/contact/\" target=\"_blank\">"
+"please register</a>.<br />If you have any problems configuring plugin, "
+"please check our <a href=\"https://docs.volt.io/plugins/woocommerce/\" "
+"target=\"_blank\">documentation page</a>."
+msgstr ""
+
+#: includes/WC_Gateway_Voltio.php:35
+msgid "Pay by Bank"
+msgstr "Bank Betaling"
+
+#: views/html/modal.php:6
+msgid "How Volt works"
+msgstr "Hoe Volt werkt"
+
+#: views/html/modal.php:8
+msgid "Check out in three easy steps:"
+msgstr "Uitchecken in drie eenvoudige stappen:"
+
+#: views/html/modal.php:16
+msgid "Select your bank (99% of banks supported)"
+msgstr "Selecteer uw bank"
+
+#: views/html/modal.php:17
+msgid "Pay from your bank. No card needed."
+msgstr "Betaal vanaf uw bank. Geen kaart nodig."
+
+#: views/html/modal.php:23
+msgid "Log into your account"
+msgstr "Log in op uw bankieren app"
+
+#: views/html/modal.php:24
+msgid "Your bank details are never shared."
+msgstr "Met behulp van uw vingerafdruk of Face ID."
+
+#: views/html/modal.php:30
+msgid "Approve the payment"
+msgstr "De betaling goedkeuren"
+
+#: views/html/modal.php:31
+msgid "That’s it. Faster and more secure."
+msgstr "Dat is het. Sneller en veiliger."
+
+#: views/html/modal.php:35
+msgid "Continue"
+msgstr "Ga verder"
+
+#: includes/WC_Gateway_Voltio.php:51
+msgid "Payment notifications URL"
+msgstr ""
+
+#: volt-pay-by-bank.php:151 volt-pay-by-bank.php:272
+msgid "Select bank"
+msgstr ""
+
+#: includes/WC_Gateway_Voltio.php:197
+msgid "Set Production environment"
+msgstr ""
+
+#: includes/WC_Gateway_Voltio.php:196
+msgid "Set Sandbox environment"
+msgstr ""
+
+#: volt-pay-by-bank.php:30
+msgid "Settings"
+msgstr ""
+
+#: includes/WC_Gateway_Voltio.php:56
+msgid "Success, pending, failure, cancellation redirection URL"
+msgstr ""
+
+#. Name of the plugin
+msgid "Volt Pay by Bank"
+msgstr ""
+
+#. page_title
+#: includes/VoltioSettings.php:16 includes/VoltioSettings.php:17
+#: includes/VoltioSettings.php:30
+msgid "Volt settings"
+msgstr ""
+
+#. Author of the plugin
+msgid "Volt.io"
+msgstr ""
+
+#. Description of the plugin
+msgid "Volt.io payment gateway for WooCommerce"
+msgstr ""
+
+#: includes/WC_Gateway_Voltio.php:34
+msgid "Volt: Pay by Bank"
+msgstr ""

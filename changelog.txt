@@ -1,3 +1,9 @@
+2023-12-07 - version 1.6
+* remove unnecessary JS code
+* addition of bank icons based on geolocation
+* addition of AT, DE, ES, FR, NL translations
+* removal of vendor directory and Guzzle files
+
 2023-10-02 - version 1.5
 * prevent cancellation of the order if the order is younger than 14 days
 
