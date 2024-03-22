@@ -104,10 +104,15 @@ class WC_Gateway_Voltio extends WC_Payment_Gateway {
 		 $input = file_get_contents( 'php://input' );
 		$body   = json_decode( $input );
 		global $wpdb;
-		$order_id = $wpdb->get_var( $wpdb->prepare( 'select post_id from ' . $wpdb->postmeta . ' where meta_value = %s', $body->reference ) );
-		update_post_meta( $order_id, 'current_volt_status', $body->status );
-		update_post_meta( $order_id, 'volt_payment_id', $body->payment );
+		if(VOLTIO_WC_HPOS) {
+			$order_id = $wpdb->get_var($wpdb->prepare('select order_id from ' . $wpdb->prefix . 'wc_orders_meta where meta_value = %s', $body->reference));
+		}
+		else{
+			$order_id = $wpdb->get_var($wpdb->prepare('select post_id from ' . $wpdb->postmeta . ' where meta_value = %s', $body->reference));
+		}
 		$order          = new WC_Order( $order_id );
+		$order->update_meta_data('current_volt_status', $body->status );
+		$order->update_meta_data('volt_payment_id', $body->payment );
 		$status         = $body->status;
 		$detailedStatus = false;
 		if ( isset( $body->detailedStatus ) ) {
@@ -123,25 +128,25 @@ class WC_Gateway_Voltio extends WC_Payment_Gateway {
 		}
 		switch ( $status ) {
 			case 'COMPLETED':
-				update_post_meta($order_id, 'volt_completed_date', current_time( 'timestamp' ));
+				$order->update_meta_data('volt_completed_date', current_time( 'timestamp' ));
 				break;
 
 			case 'RECEIVED':
 				$order->update_status( 'processing' );
 				$order->payment_complete( $order->get_transaction_id() );
 				$this->schedule_cancel_order( $order_id );
-				delete_post_meta($order_id, 'volt_completed_date');
+				$order->delete_meta_data('volt_completed_date');
 				$this->helper->volt_logger( 'IPN log: The status from the gateway was received. Value: ' . $status . ' Order id: ' . $order_id );
 				break;
 
 			case 'NOT_RECEIVED':
 				$order->update_status( 'cancelled' );
-				delete_post_meta($order_id, 'volt_completed_date');
+				$order->delete_meta_data('volt_completed_date');
 				$this->helper->volt_logger( 'IPN log: The status from the gateway was received. Value: ' . $status . ' Order id: ' . $order_id );
 				break;
 
 			case 'FAILED':
-				delete_post_meta($order_id, 'volt_completed_date');
+				$order->delete_meta_data('volt_completed_date');
 				$this->helper->volt_logger( 'IPN log: The status from the gateway was received. Value: ' . $status . ', detailed status: ' . $detailedStatus );
 				if ( 'ABANDONED_BY_USER' === $detailedStatus ) {
 					if ( ! wp_next_scheduled( 'voltio_cancel_order', array( $order_id ) ) ) {
@@ -156,6 +161,7 @@ class WC_Gateway_Voltio extends WC_Payment_Gateway {
 				}
 				break;
 		}
+		$order->save_meta_data();
 		ob_flush();
 		die();
 	}

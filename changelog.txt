@@ -1,3 +1,6 @@
+2023-03-22 - version 1.7
+* add HPOS support
+
 2023-12-07 - version 1.6
 * remove unnecessary JS code
 * addition of bank icons based on geolocation

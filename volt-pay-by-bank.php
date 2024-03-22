@@ -3,7 +3,7 @@
  * Plugin Name: Volt Pay by Bank
  * Plugin URI: https://volt.io
  * Description: Volt.io payment gateway for WooCommerce
- * Version: 1.6
+ * Version: 1.7
  * Author: Volt.io
  * Author URI: http://volt.io
  * License: LGPL 3.0
@@ -12,17 +12,31 @@
  * WC requires at least: 5.5
  * WC tested up to: 5.5
  */
-
+use Automattic\WooCommerce\Utilities\OrderUtil;
 session_start();
 /*
  * Add new gateway
  */
-define('VOLTIO_PLUGIN_VERSION', '1.6');
+define('VOLTIO_PLUGIN_VERSION', '1.7');
 define('VOLTIO_PLUGIN_DIR', dirname(plugin_basename(__FILE__)));
+$hpos_enabled = false;
+if(get_option('woocommerce_custom_orders_table_enabled') == 'yes'){
+	$hpos_enabled = true;
+}
+define('VOLTIO_WC_HPOS', $hpos_enabled);
 add_action('plugins_loaded', 'init_gateway_voltio');
 add_action('voltio_cancel_order', 'voltio_cancel_unpaid_order', 10, 1);
 add_action('woocommerce_cancel_unpaid_orders', 'volt_prevent_cancel_order');
 add_filter('plugin_action_links', 'add_voltio_settings_link', 10, 2);
+
+add_action(
+	'before_woocommerce_init',
+	function() {
+		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+		}
+	}
+);
 
 function add_voltio_settings_link($links, $file)
 {
@@ -40,7 +54,7 @@ function volt_prevent_cancel_order($order_id)
 	$order = wc_get_order($order_id);
 	$days_in_seconds = 14 * 24 * 60 * 60;
 	if ($order->get_status() === 'pending' && $order->get_payment_method() === 'volt') {
-		if ($cmp_date = get_post_meta($order_id, 'volt_completed_date')) {
+		if ($cmp_date = $order->get_meta('volt_completed_date')) {
 			$time_diff = current_time('timestamp') - $cmp_date;
 			if ($time_diff < $days_in_seconds) {
 				$order->update_status('pending');
@@ -227,7 +241,9 @@ function submited_ajax_order_data()
 					$order_id = $order->save();
 
 					do_action('woocommerce_checkout_update_order_meta', $order_id, $data);
-					update_post_meta($order_id, 'order_hash', $order_hash);
+					$order = new WC_Order($order_id);
+					$order->update_meta_data('order_hash', $order_hash);
+					$order->save_meta_data();
 					setcookie('order_hash', $order_hash, time() + 3000, '/');
 					WC()->cart->empty_cart();
 				}
@@ -245,8 +261,9 @@ function submited_ajax_order_data()
 add_action('woocommerce_thankyou', 'custom_content_thankyou', 10, 1);
 function custom_content_thankyou($order_id)
 {
-	if (get_post_meta($order_id, 'order_hash')) {
-		$current_volt_status = esc_html(get_post_meta($order_id, 'current_volt_status', true));
+	$order = new WC_Order($order_id);
+	if ($order->get_meta('order_hash')) {
+		$current_volt_status = esc_html($order->get_meta('current_volt_status'));
 		echo '<p> ' . esc_html(__('Volt status: ', 'volt')) . esc_html($current_volt_status) . '</p>';
 	}
 }
@@ -269,10 +286,16 @@ add_action(
 function get_order_data_by_hash($hash)
 {
 	global $wpdb;
-	$order = $wpdb->get_var($wpdb->prepare('select post_id from ' . $wpdb->postmeta . ' where meta_value = %s', $hash));
-	$order_key = get_post_meta($order, '_order_key', true);
+	if(VOLTIO_WC_HPOS) {
+		$order_id = $wpdb->get_var($wpdb->prepare('select order_id from ' . $wpdb->prefix . 'wc_orders_meta where meta_value = %s', $hash));
+	}
+	else{
+		$order_id = $wpdb->get_var($wpdb->prepare('select post_id from ' . $wpdb->postmeta . ' where meta_value = %s', $hash));
+	}
+	$order = new WC_Order($order_id);
+	$order_key = $order->get_meta('_order_key');
 	$result = array(
-		'order_id' => $order,
+		'order_id' => $order_id,
 		'order_key' => $order_key,
 	);
 	return $result;
