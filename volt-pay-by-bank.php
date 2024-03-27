@@ -10,7 +10,7 @@
  * Text Domain: voltio
  * Domain Path: /lang
  * WC requires at least: 5.5
- * WC tested up to: 5.5
+ * WC tested up to: 8.5.2
  */
 use Automattic\WooCommerce\Utilities\OrderUtil;
 session_start();
