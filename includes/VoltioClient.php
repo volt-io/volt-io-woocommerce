@@ -117,10 +117,11 @@ class VoltioClient {
 		$return_url         = wc_get_page_permalink( 'checkout' ) . ltrim( $return_wc_endpoint, '/' );
 		$first_name         = isset( $_REQUEST['first_name'] ) ? sanitize_text_field( $_REQUEST['first_name'] ) : 'Anonymous';
 		$last_name          = isset( $_REQUEST['last_name'] ) ? sanitize_text_field( $_REQUEST['last_name'] ) : 'Anonymous';
-
+		$total = floatval( WC()->cart->get_total('') );
+		$total_float = wc_format_decimal($total);
 		$data = array(
 			'currencyCode'      => $currency,
-			'amount'            => WC()->cart->cart_contents_total * 100,
+			'amount'            => $total_float * 100,
 			'type'              => 'OTHER',
 			'uniqueReference'   => $this->order_hash,
 			'payer'             => array(
@@ -146,13 +147,13 @@ class VoltioClient {
 		curl_setopt( $curl, CURLOPT_POST, true );
 		curl_setopt( $curl, CURLOPT_FAILONERROR, true );
 		$response = curl_exec( $curl );
-		update_option( 'curltester' . time(), print_r( curl_getinfo( $curl ), 1 ) );
 		$error = curl_error( $curl );
 		curl_close( $curl );
 		if ( $error ) {
-			$this->helper->volt_logger( 'Dropn payments failure. CURL errno: ' . curl_errno( $curl ) . ', error: ' . $error );
+			$this->helper->volt_logger( 'Dropn payments failure. CURL errno: ' . curl_errno( $curl ) . ', error: ' . $error . print_r($data, 1) );
 			echo 'Error: ' . esc_html( $error ) . ', ' . esc_html( curl_errno( $curl ) );
 		} else {
+			$this->helper->volt_logger( print_r($data, 1) );
 			$response = json_decode( $response, true );
 
 			if ( array_key_exists( 'id', $response ) ) {

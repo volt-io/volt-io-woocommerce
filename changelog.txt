@@ -1,4 +1,7 @@
-2023-03-22 - version 1.7
+2024-08-20 - version 1.7.1
+* cart value fix
+
+2024-03-22 - version 1.7
 * add HPOS support
 
 2023-12-07 - version 1.6
